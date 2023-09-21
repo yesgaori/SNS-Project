@@ -15,17 +15,12 @@
 		<div class="d-flex justify-content-center">
 			<section class="contents d-flex justify-content-center align-items-center">
 				<div class="input-box my-5">
-					<div class="d-flex justify-content-center">
-						<img src="/static/images/crab.png" width="30px">
-					</div>
-					<div class="d-flex justify-content-center mt-3">
-						<img src="/static/images/user.png" width="50px">
-					</div>
+					<c:import url="/WEB-INF/jsp/include/logo.jsp" />
 					<div class="text-center">
 						<input type="text" placeholder="아이디" class="form-control mt-5" id="loginIdInput">
 						<input type="password" placeholder="비밀번호" class="form-control mt-2" id="passwordInput">
 						<button type="button"  class="btn btn-primary btn-block mt-3 mb-5" id="loginBtn">로그인</button>
-						<a href="https://localhost:8080/user/join-view" class="">회원가입</a>
+						<div>회원이 아직 아니신가요 ? <a href="/user/join-view" class="">회원가입</a></div>
 					</div>
 				</div>
 			</section>
@@ -64,7 +59,7 @@
 					, data:{"loginId":loginId, "password":password}
 					, success:function(data) {
 						if(data.result == "success") {
-							location.href = "/post/list-view";
+							location.href = "/post/timeLine-view";
 						} else {
 							alert("아이디, 비밀번호를 확인 해 주세요");
 						}
