@@ -13,7 +13,9 @@ header {
 }
 
 .contents {
-	height: 500px;
+	width:600px;
+	height: 700px;
+	background-color: lightskyblue;
 }
 
 .contents > .input-box {
@@ -23,5 +25,4 @@ header {
 
 footer {
 	height:70px;
-	background-color: #dddddd;
 }
