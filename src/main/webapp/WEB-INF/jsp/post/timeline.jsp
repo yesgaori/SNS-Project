@@ -19,14 +19,14 @@
 				<div>
 					<nav class="timeLine-nav">
 						<ul class="list-group">
-							<li class="list-group-item">홈</li>
-							<li class="list-group-item">검색</li>
-							<li class="list-group-item">탐색탭</li>
-							<li class="list-group-item">만들기</li>
+							<li class="list-group-item"><a href="#">홈</a></li>
+							<li class="list-group-item"><a href="#">검색</a></li>
+							<li class="list-group-item"><a href="#">탐색탭</a></li>
+							<li class="list-group-item"><a href="#">만들기</a></li>
 						</ul>
 					<div>
 						<c:if test="${not empty userId }">
-							<div class="mr-3">${userName }님 <a href="/user/logout">로그아웃</a></div>
+							<div class="mr-3">${userLoginId }님 <a href="/user/logout">로그아웃</a></div>
 						</c:if>
 					</div>
 					</nav>

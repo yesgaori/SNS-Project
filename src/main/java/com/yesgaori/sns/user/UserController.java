@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpSession session) {
 		
-		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 		

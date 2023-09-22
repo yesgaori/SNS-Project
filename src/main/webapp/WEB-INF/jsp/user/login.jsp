@@ -17,9 +17,11 @@
 				<div class="input-box my-5">
 					<c:import url="/WEB-INF/jsp/include/logo.jsp" />
 					<div class="text-center">
-						<input type="text" placeholder="아이디" class="form-control mt-5" id="loginIdInput">
-						<input type="password" placeholder="비밀번호" class="form-control mt-2" id="passwordInput">
-						<button type="button"  class="btn btn-primary btn-block mt-3 mb-5" id="loginBtn">로그인</button>
+						<form id="loginForm">
+							<input type="text" placeholder="아이디" class="form-control mt-5" id="loginIdInput">
+							<input type="password" placeholder="비밀번호" class="form-control mt-2" id="passwordInput">
+							<button type="button"  class="btn btn-primary btn-block mt-3 mb-5" id="loginBtn">로그인</button>
+						</form>
 						<div>회원이 아직 아니신가요 ? <a href="/user/join-view" class="">회원가입</a></div>
 					</div>
 				</div>
@@ -37,6 +39,44 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
+			
+			// $("#loginBtn").on("click", function() {})
+			$("#loginForm").on("submit", function(e) {
+				
+				// form 태그가 가진 페이지 이동 기능을 막자
+				e.preventDefault();
+				
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/login"
+					, data:{"loginId":loginId, "password":password}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/post/timeline-view";
+						} else {
+							alert("아이디, 비밀번호를 확인 해 주세요");
+						}
+					}					
+					, error:function() {
+						alert("로그인 에러");
+					}
+				});
+			});
+			
+			
 			
 			$("#loginBtn").on("click", function() {
 				
@@ -59,7 +99,7 @@
 					, data:{"loginId":loginId, "password":password}
 					, success:function(data) {
 						if(data.result == "success") {
-							location.href = "/post/timeLine-view";
+							location.href = "/post/timeline-view";
 						} else {
 							alert("아이디, 비밀번호를 확인 해 주세요");
 						}

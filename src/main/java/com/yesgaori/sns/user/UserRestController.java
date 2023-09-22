@@ -52,11 +52,12 @@ public class UserRestController {
 		if(user != null) {
 			// 로그인 성공
 			HttpSession session = request.getSession();
+			// request 변수값에 바로 세션을 넣어도 사용가능
 			// 세션에 로그인 되었다 라는 정보를 저장
 			// 세션에 사용자와 관련된 정보를 저장
 			// 세션에 사용자 정보가 저장된 경우 로그인된 상태로 파악
 			session.setAttribute("userId", user.getId());
-			session.setAttribute("userName", user.getName());
+			session.setAttribute("userLoginId", user.getLoginId());
 			
 			resultMap.put("result", "success");
 		} else {

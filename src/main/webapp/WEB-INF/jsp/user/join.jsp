@@ -22,8 +22,8 @@
 						<input type="text" placeholder="아이디" class="form-control" id="loginIdInput">
 						<button type="button" class="btn btn-primary ml-3" id="duplicateBtn">중복확인</button>
 					</div>
-					<h5 class="small d-none text-success duplicateText">사용가능한 아이디 입니다</h5>
-					<h5 class="small d-none text-danger avaliiableText">이미 사용중인 아이디 입니다</h5>
+					<h5 class="small d-none text-danger duplicateText">이미 사용중인 아이디 입니다</h5>
+					<h5 class="small d-none text-success avaliableText">사용가능한 아이디 입니다</h5>
 					<input type="password" placeholder="비밀번호" class="form-control mt-2" id="passwordInput">
 					<input type="password" placeholder="비밀번호" class="form-control mt-2" id="passwordConfirmInput">
 					<input type="text" placeholder="이름" class="form-control mt-2" id="nameInput">
@@ -52,7 +52,9 @@
 			
 			$("#loginIdInput").on("click", function() {
 				isCheckDuplicate = false;
-				
+				isDuplicate = true;
+				$(".avaliableText").addClass("d-none");
+				$(".duplicateText").addClass("d-none");
 			});
 			
 			$("#duplicateBtn").on("click", function() {
@@ -71,13 +73,13 @@
 						isCheckDuplicate = true;
 						if(data.isDuplicate == true) {
 							// 중복 되었다
-							$("#duplicateText").removeClass("d-non");
-							$("#avaliableText").addClass("d-non");
+							$(".duplicateText").removeClass("d-none");
+							$(".avaliableText").addClass("d-none");
 							isDuplicate = true;
 						} else {
 							// 중복 되지 않았다
-							$("#duplicateText").addClass("d-non");
-							$("#avaliableText").removeClass("d-non");
+							$(".duplicateText").addClass("d-none");
+							$(".avaliableText").removeClass("d-none");
 							isDuplicate = false;
 						}
 					}
