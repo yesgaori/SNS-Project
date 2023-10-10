@@ -15,6 +15,11 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	public User getUserById(int id) {
+		 User user = userRepository.findById(id).orElse(null);
+		 return user;
+	}
+	
 	public Boolean isDuplicateId(String loginId) {
 		
 		int count = userRepository.countByLoginId(loginId);

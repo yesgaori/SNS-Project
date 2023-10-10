@@ -1,35 +1,32 @@
-package com.yesgaori.sns.post;
+package com.yesgaori.sns.comment;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.yesgaori.sns.post.service.PostService;
+import com.yesgaori.sns.comment.service.CommentService;
 
-@RequestMapping("/post")
 @RestController
-public class PostRestController {
-	
+public class CommentRestController {
+
 	@Autowired
-	private PostService postService;
+	private CommentService commentService;
 	
-	@PostMapping("/create")
-	public Map<String, String> createPost(
-			@RequestParam("content") String content
-			,@RequestParam("imagePath") MultipartFile file
+	@PostMapping("/post/comment/create")
+	public Map<String, String> createComment(
+			@RequestParam("postId") int postId
+			, @RequestParam("content") String content
 			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
-		
-		int count = postService.addPost(userId, content, file);
+		int count = commentService.addComment(userId, postId, content);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(count == 1) {
@@ -39,7 +36,7 @@ public class PostRestController {
 		}
 		
 		return resultMap;
+		
 	}
-	
 	
 }
