@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yesgaori.sns.common.FileManager;
+import com.yesgaori.sns.like.service.LikeService;
 import com.yesgaori.sns.post.domain.Post;
 import com.yesgaori.sns.post.dto.PostDetail;
 import com.yesgaori.sns.post.repository.PostRepository;
@@ -22,6 +23,9 @@ public class PostService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private LikeService likeService;
 	
 	public int addPost(int userId, String content, MultipartFile file) {
 		

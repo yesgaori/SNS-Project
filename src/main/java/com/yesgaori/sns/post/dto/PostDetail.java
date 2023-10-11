@@ -2,6 +2,8 @@ package com.yesgaori.sns.post.dto;
 
 import java.util.List;
 
+import com.yesgaori.sns.comment.dto.CommentDetail;
+
 import lombok.Builder;
 import lombok.Getter;
 

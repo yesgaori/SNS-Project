@@ -7,16 +7,28 @@
 <mapper namespace="com.yesgaori.sns.comment.repository.CommentRepository">
 
 
-<insert></insert>
+<insert id="insertLike" parameterType="map">
+	INSERT INTO
+		`like`
+	(
+		`postId`
+		, `userId`
+	)
+	VALUE
+	(
+		#{postId}
+		, #{userId}
+	)
+</insert>
 
-<select id="selectCountLike" parameterType="int" resultType="map">
+<select id="selectCountLike" parameterType="int" resultType="int">
 
 	SELECT
-		number(1)
+		count(1)
 	FROME
 		`likeCount`
 	WHERE
-		`postId` = ${postId }
+		`postId` = #{postId }
 
 
 

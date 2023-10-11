@@ -124,10 +124,8 @@
 					, success:function(data) {
 						
 						if(data.result == "success") {
-							
 							location.reload();
-							
-						} else{
+						} else {
 							alert("좋아요 실패");
 						}
 						
@@ -136,6 +134,7 @@
 						alert("좋아요 에러");
 					}
 				});
+				
 				
 			});
 			
