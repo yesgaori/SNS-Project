@@ -13,7 +13,7 @@ public class FileManager {
 	
 
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\YesGaori\\FirsProject\\upload\\sns";
+	public static final String FILE_UPLOAD_PATH = "D:\\YesGaori\\FirstProject\\upload\\sns";
 	
 	public static String saveFile(int userId, MultipartFile file) {
 		

@@ -1,9 +1,12 @@
 package com.yesgaori.sns.post;
 
-import org.springframework.ui.Model;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,9 +22,12 @@ public class PostController {
 	private PostService postService;
 	
 	@GetMapping("/timeline-view")
-	public String timeLine(Model model) {
+	public String timeLine(Model model
+			, HttpSession session) {
 		
-		List<PostDetail> postList = postService.getPostList();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<PostDetail> postList = postService.getPostList(userId);
 		
 		model.addAttribute("postList", postList);
 		

@@ -54,19 +54,31 @@
 						</div>
 						<img width="100%" src="${post.imagePath }">
 						<div class="d-flex">
-							<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i><h4>좋아요 ${post.likeCount }개</h4>
+							<c:choose>
+								<c:when test="${post.like }">
+									<i class="bi bi-heart-fill text-danger"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
+								</c:otherwise>
+							</c:choose>
+							<h4>좋아요 ${post.likeCount }개</h4>
 						</div>
-						<div class="d-flex">
+						<div class="d-flex mb-3">
 							<h5>${post.loginId }</h5>
 							<div>${post.content }</div>
 						</div>
-						<div class="d-flex">
-							<i class="bi bi-person-square"></i>
-							<div>
-								<h4>ImPoobao</h4>
-								<div>엄마! 나도 데리고 가요~</div>
+						
+						<c:forEach var="comment" items="${post.commentList }">
+							<div class="d-flex">							
+								<i class="bi bi-person-square"></i>
+								<div class="d-flex">
+									<h5>${comment.loginId }</h5>
+									<div>${comment.content }</div>
+								</div>
 							</div>
-						</div>
+						</c:forEach>
+							
 						<div class="d-flex align-items-center contain">
 							<input type="text" class="col-10 form-control "id="commentInput${post.id }"></input>
 							<button type="button" class="btn btn-primary comment-btn" data-post-id="${post.id }">게시</button>
@@ -87,9 +99,10 @@
 			
 			$(".comment-btn").on("click", function() {
 				
+				
 				let postId = $(this).data("post-id");
 				
-				$("#commentInput" + postId).val();
+				let comment = $("#commentInput" + postId).val();
 				
 				$.ajax({
 					type:"post"
@@ -98,6 +111,7 @@
 					, success:function(data) {
 						
 						if(data.result == "success") {
+
 							location.reload();
 							
 						}else {

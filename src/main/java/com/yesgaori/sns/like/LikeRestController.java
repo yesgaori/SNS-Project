@@ -37,4 +37,8 @@ public class LikeRestController {
 		return resultMap;
 		
 	}
+	
+//	@PostMapping("/post/like/delete")
+//	public 
+	
 }
