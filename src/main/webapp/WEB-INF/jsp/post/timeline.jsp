@@ -50,7 +50,25 @@
 						
 						<div class="d-flex justify-content-between card-list">
 							<h4><i class="bi bi-person-square"></i>${post.loginId }</h4>
-							<i class="bi bi-three-dots mr-2 mt-1"></i>
+							<i class="bi bi-three-dots mr-2 mt-1" data-toggle="modal" data-target="#exampleModalCenter"></i>
+							<!-- Button trigger modal -->				
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body d-flex justify-content-center">
+								      <button type="button" class="btn btn-danger deleteBtn" data-post-id="${post.id }">삭제하기</button>
+								      </div>
+								      <div class="modal-footer">
+								      </div>
+								    </div>
+								  </div>
+								</div>
 						</div>
 						<img width="100%" src="${post.imagePath }">
 						<div class="d-flex">
@@ -78,7 +96,6 @@
 								</div>
 							</div>
 						</c:forEach>
-							
 						<div class="d-flex align-items-center contain">
 							<input type="text" class="col-10 form-control "id="commentInput${post.id }"></input>
 							<button type="button" class="btn btn-primary comment-btn" data-post-id="${post.id }">게시</button>
@@ -96,6 +113,25 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
+			
+			$(".deleteBtn").on("click", function() {
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"delete"
+					, url:"/post/delete"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						}
+					}
+					,error:function() {
+						alert("삭제 에러")
+					}
+				});
+				
+			});
 			
 			$(".comment-btn").on("click", function() {
 				

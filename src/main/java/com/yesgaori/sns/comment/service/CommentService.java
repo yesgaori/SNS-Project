@@ -50,5 +50,8 @@ public class CommentService {
 		return commentDetailList;
 	}
 	
+//	public int deleteComment() {
+//		
+//	}
 	
 }
