@@ -6,12 +6,15 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yesgaori.sns.like.service.LikeService;
 
+@RequestMapping("/post")
 @RestController
 public class LikeRestController {
 
@@ -19,7 +22,7 @@ public class LikeRestController {
 	@Autowired
 	private LikeService likeService;
 	
-	@PostMapping("/post/like")
+	@PostMapping("/like")
 	public Map<String, String> like(
 			@RequestParam("postId") int postId
 			, HttpSession session) {
@@ -38,7 +41,24 @@ public class LikeRestController {
 		
 	}
 	
-//	@PostMapping("/post/like/delete")
-//	public 
+	@DeleteMapping("/unlike")
+	public Map<String, String> unlike (
+								@RequestParam("postId") int postId
+								,HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = likeService.deleteLikeByPostIdAndUserId(postId, userId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		return result;
+	}
+	
 	
 }

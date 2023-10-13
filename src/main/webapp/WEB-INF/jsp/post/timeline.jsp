@@ -50,31 +50,18 @@
 						
 						<div class="d-flex justify-content-between card-list">
 							<h4><i class="bi bi-person-square"></i>${post.loginId }</h4>
-							<i class="bi bi-three-dots mr-2 mt-1" data-toggle="modal" data-target="#exampleModalCenter"></i>
+							<%-- 로그인 한 사용자의 게시글에만 more-btn 노출 --%>
+							<c:if test="${post.userId eq userId }">
+							<i class="bi bi-three-dots mr-2 mt-1 more-btn" data-toggle="modal" data-post-id="${post.id }") data-target="#exampleModalCenter"></i>
+							</c:if>
 							<!-- Button trigger modal -->				
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-								  <div class="modal-dialog modal-dialog-centered" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body d-flex justify-content-center">
-								      <button type="button" class="btn btn-danger deleteBtn" data-post-id="${post.id }">삭제하기</button>
-								      </div>
-								      <div class="modal-footer">
-								      </div>
-								    </div>
-								  </div>
-								</div>
+								
 						</div>
 						<img width="100%" src="${post.imagePath }">
 						<div class="d-flex">
 							<c:choose>
 								<c:when test="${post.like }">
-									<i class="bi bi-heart-fill text-danger"></i>
+									<i class="bi bi-heart-fill text-danger unlike-icon" data-post-id="${post.id }"></i>
 								</c:when>
 								<c:otherwise>
 									<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
@@ -102,6 +89,24 @@
 						</div>
 						</div>
 						</c:forEach>
+						<!-- Modal -->
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body d-flex justify-content-center">
+								      <button type="button" class="btn btn-danger deleteBtn">삭제하기</button>
+								      </div>
+								      <div class="modal-footer">
+								      </div>
+								    </div>
+								  </div>
+								</div>
+						
 					</div>
 				</div>
 			</section>
@@ -113,6 +118,39 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
+			
+			$(".unlike-icon").on("click", function() {
+				let postId = $(this).data("post-id")
+				
+				$.ajax({
+					type:"delete"
+					, url:"/post/unlike"
+					, data:{"postId":postId}
+					,success:function(data) {
+						
+						if(data.result == "success"){
+							location.reload();
+						} else{
+							alert("좋아요버튼 실패")
+						}
+						
+					}
+					,error:function() {
+						alert("좋아요버튼 에러")
+					}
+					
+					
+				});
+				
+			});
+			
+			$(".more-btn").on("click", function() {
+				// 모달에 있는 삭제하기 링크 태그에 postId를 data 속성에 추가한다.
+				// data-post-id
+				let postId = $(this).data("post-id")
+				$(".deleteBtn").data("post-id", postId)
+				
+			});
 			
 			$(".deleteBtn").on("click", function() {
 				let postId = $(this).data("post-id");

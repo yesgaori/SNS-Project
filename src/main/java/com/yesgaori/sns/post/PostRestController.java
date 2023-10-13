@@ -23,9 +23,12 @@ public class PostRestController {
 	private PostService postService;
 	
 	@DeleteMapping("/delete")
-	public Map<String, String> deletePost(@RequestParam("postId") int postId) {
+	public Map<String, String> deletePost(@RequestParam("postId") int postId
+										, HttpSession session) {
 		
-		int count = postService.deletePost(postId);
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postService.deletePost(postId, userId);
 		
 		Map<String, String> result = new HashMap<>();
 		

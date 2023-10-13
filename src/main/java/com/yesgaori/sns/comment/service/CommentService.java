@@ -50,8 +50,8 @@ public class CommentService {
 		return commentDetailList;
 	}
 	
-//	public int deleteComment() {
-//		
-//	}
+	public int deleteCommentByPostId(int postId) {
+		return commentRepository.deleteCommentByPost(postId);
+	}
 	
 }

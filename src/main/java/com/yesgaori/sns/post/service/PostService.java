@@ -32,11 +32,18 @@ public class PostService {
 	@Autowired
 	private CommentService commentService;
 	
-	public int deletePost(int postId) {
-		
+	public int deletePost(int postId, Integer userId) {
+		// 첨부된 파일 삭제
 		Post post = postRepository.selectePost(postId);
 		
-		commentRepo
+		if(userId == null || post.getUserId() != userId) {
+			return 0;
+		}
+		
+		// 댓글 삭제
+		commentService.deleteCommentByPostId(postId);
+		// 좋아요 삭제
+		likeService.deleteLikeByPostId(postId);
 		
 		FileManager.removeFile(post.getImagePath());
 		
