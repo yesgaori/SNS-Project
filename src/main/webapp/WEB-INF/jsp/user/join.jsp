@@ -30,7 +30,7 @@
 					<input type="text" placeholder="이메일주소" class="form-control mt-2" id="emailInput">
 					<button type="button"  class="btn btn-primary btn-block mt-3 mb-5" id="joinBtn">새계정 만들기</button>
 				</div>
-				<a href="/user/login-view">이미 회원입니다</div>
+				<a href="/user/login-view">이미 회원입니다</a>
 			</div>
 		</section>
 		</div>
